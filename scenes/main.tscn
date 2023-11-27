@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://buy0dco3u67ik"]
+
+[ext_resource type="Texture2D" uid="uid://csyqro71w8uu0" path="res://assets/textures/dev/grids/Dark/texture_07.png" id="1_atmdj"]
+[ext_resource type="Texture2D" uid="uid://ccv5edy0710u0" path="res://assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_g03b4"]
+[ext_resource type="Texture2D" uid="uid://cxxum1cel87as" path="res://assets/textures/dev/grids/Orange/texture_05.png" id="2_tlh0e"]
+[ext_resource type="MeshLibrary" uid="uid://b5bwqh2pp28y6" path="res://assets/meshlibrary/tileset_new.tres" id="3_ndk7m"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="3_r4vs0"]
+[ext_resource type="PackedScene" uid="uid://c6qljvwtrkjxx" path="res://assets/tileset/tileset.tscn" id="4_woq3n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1d53"]
+albedo_texture = ExtResource("1_atmdj")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h0mr4"]
+albedo_texture = ExtResource("2_tlh0e")
+uv1_triplanar = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3usj3"]
+panorama = ExtResource("2_g03b4")
+
+[sub_resource type="Sky" id="Sky_m8uxi"]
+sky_material = SubResource("PanoramaSkyMaterial_3usj3")
+
+[sub_resource type="Environment" id="Environment_3ems1"]
+background_mode = 2
+sky = SubResource("Sky_m8uxi")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qvdcf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qawvb"]
+height = 1.2
+
+[node name="world" type="Node3D"]
+
+[node name="stage" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.027)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_x1d53")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8582, 1.93498, 0.027)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_x1d53")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.595059, 15.2454)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_h0mr4")
+
+[node name="GridMap" type="GridMap" parent="stage"]
+mesh_library = ExtResource("3_ndk7m")
+cell_size = Vector3(1, 1, 1)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65531, 65525, 1048576, 65531, 65524, 1048576, 65531, 65523, 1048576, 65531, 65522, 1048576, 65532, 65525, 1441792, 65532, 65524, 1441792, 65532, 65522, 1441792, 65532, 65523, 1441792, 65532, 65521, 1441792, 65532, 65520, 1441792, 65532, 65519, 1441792, 65531, 65521, 1048576, 65531, 65520, 1048576, 65531, 65519, 1048576, 65531, 65517, 1048577, 65531, 65518, 1048576, 65532, 65517, 0, 65532, 65518, 1441795, 65533, 65518, 655360, 131071, 65518, 655360, 131071, 65517, 0, 65536, 65518, 655360, 65535, 65518, 1507328, 65535, 65517, 1507328, 65536, 65517, 0, 65533, 65517, 0, 131070, 65517, 0, 131070, 65518, 655360, 65537, 65516, 1048577, 65537, 65519, 655361, 65540, 65514, 1, 65539, 65514, 1048577, 65542, 65518, 1441793, 65542, 65517, 1, 65540, 65521, 1441793, 65539, 65521, 655361, 65538, 65519, 655360, 65539, 65520, 1048576, 65541, 65518, 655360, 65541, 65517, 0, 65540, 65515, 1441792, 65539, 65515, 1048576, 65540, 65519, 1441792, 65540, 65516, 1441792, 65540, 65517, 3, 65540, 65518, 1441795, 65538, 65516, 0, 65539, 65516, 1048579, 65537, 65517, 1048579, 65537, 65518, 655363, 65539, 65519, 655363, 65539, 65518, 655362, 65538, 65518, 655362, 65538, 65517, 655362, 65539, 65517, 655362, 65540, 65520, 1441792, 131062, 65527, 1, 131062, 65529, 1441793, 131061, 65529, 655361, 131061, 65528, 1048576, 131062, 65528, 1441792, 131061, 65527, 1048577)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="tileset" parent="stage/GridMap" instance=ExtResource("4_woq3n")]
+
+[node name="env" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="env"]
+environment = SubResource("Environment_3ems1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0527897, 0)
+script = ExtResource("3_r4vs0")
+
+[node name="standing_collisionshape" type="CollisionShape3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08696, 0)
+shape = SubResource("CapsuleShape3D_qvdcf")
+
+[node name="crouching_collisionshape" type="CollisionShape3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.821941, 0)
+shape = SubResource("CapsuleShape3D_qawvb")
+disabled = true
+
+[node name="head" type="Node3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="player/head"]
+
+[node name="RayCast3D" type="RayCast3D" parent="player"]
+target_position = Vector3(0, 2, 0)

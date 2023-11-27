@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6qljvwtrkjxx"]
+
+[ext_resource type="PackedScene" path="res://assets/tileset/tileset.glb" id="1_t678u"]
+
+[node name="tileset" type="Node3D"]
+
+[node name="tileset" parent="." instance=ExtResource("1_t678u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.0546, 73.8819, 119.014)
