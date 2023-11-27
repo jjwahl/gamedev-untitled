@@ -5,7 +5,7 @@ extends CharacterBody3D
 @onready var crouching_collisionshape = $crouching_collisionshape
 @export var current_speed = 5.0
 @onready var ray_cast_3d = $RayCast3D
-
+###bea
 const walking_speed = 5.0
 const sprinting_speed = 7.0
 var crouching_speed = 3.0
